@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CodeNGamet</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+      background: #fff;
+    }
+
+    .top-header {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+    }
+
+    .header-inner,
+    .nav-inner {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      margin-right: 10px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .nav-bar {
+      min-height: 45px;
+      background: #f4f5f6;
+    }
+
+    .nav-inner {
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-bar a {
+      display: flex;
+      align-items: center;
+      height: 45px;
+      padding: 0 15px;
+      color: #333;
+      font-size: 16px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-bar a:hover {
+      color: #000;
+      background: #e9eaec;
+    }
+
+    .main {
+      padding: 65px 35px;
+      text-align: center;
+    }
+
+    .main h1 {
+      margin: 0 0 15px;
+      font-size: 42px;
+    }
+
+    .main p {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      padding: 45px 35px;
+      background: #f2f2f2;
+      border-top: 1px solid #ddd;
+    }
+
+    .about-column h2 {
+      margin: 0 0 18px;
+      font-size: 20px;
+    }
+
+    .about-column a {
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .about-column a:hover {
+      color: #222;
+      text-decoration: underline;
+    }
+
+    .social-link {
+      display: flex !important;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .social-link img {
+      width: 22px;
+      height: 22px;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: #e8e8e8;
+      border-top: 1px solid #d0d0d0;
+    }
+
+    footer p {
+      margin: 6px;
+    }
+
+    footer a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .about {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-inner {
+        flex-wrap: wrap;
+      }
+
+      .nav-left,
+      .nav-right {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-header {
+        height: 70px;
+      }
+
+      .header-inner,
+      .nav-inner {
+        padding: 0 15px;
+      }
+
+      .brand img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .brand-name {
+        font-size: 25px;
+      }
+
+      .nav-inner {
+        display: block;
+        padding: 0;
+      }
+
+      .nav-left,
+      .nav-right {
+        width: 100%;
+      }
+
+      .nav-bar a {
+        padding: 0 12px;
+        font-size: 14px;
+      }
+
+      .main {
+        padding: 50px 20px;
+      }
+
+      .main h1 {
+        font-size: 34px;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img src="favicon.png" alt="CodeNGamet">
+        <span class="brand-name">CodeNGamet</span>
+      </a>
+    </div>
+  </header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+
+    <div class="nav-left">
+      <a href="index.html">Home</a>
+      <a href="#">Games</a>
+      <a href="#">Apps</a>
+      <a href="#">Projects</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="#">Downloads</a>
+      <a href="#">About</a>
+      <a href="#">Community</a>
+      <a href="mailto:CodeNGamet@proton.me">Contact</a>
+    </div>
+
+  </div>
+</nav>
+
+
+
+  <main class="main">
+    <h1>CodeNGamet</h1>
+    <p>We make fun games and useful apps for everyone to enjoy.</p>
+  </main>
+
+  <section class="about">
+
+    <div class="about-column">
+      <h2>Follow CodeNGamet</h2>
+
+      <a class="social-link"
+         href="https://www.youtube.com/@CodeaAndGamet"
+         target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg"
+             alt="YouTube">
+        YouTube
+      </a>
+
+      <a class="social-link"
+         href="https://scratch.mit.edu/users/CodeNGamet/"
+         target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg"
+             alt="Scratch">
+        Scratch
+      </a>
+
+      <a class="social-link"
+         href="https://discord.com/invite/NGfqunjNM"
+         target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg"
+             alt="Discord">
+        Discord
+      </a>
+
+      <a class="social-link"
+         href="mailto:CodeNGamet@proton.me">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg"
+             alt="Proton Mail">
+        Proton Mail
+      </a>
+    </div>
+
+    <div class="about-column">
+      <h2>About CodeNGamet</h2>
+      <a href="#">About us</a>
+      <a href="#">Our goal</a>
+      <a href="#">Games</a>
+      <a href="#">Apps</a>
+    </div>
+
+    <div class="about-column">
+      <h2>Projects</h2>
+      <a href="#">Games</a>
+      <a href="#">Apps</a>
+      <a href="#">Downloads</a>
+      <a href="#">Open source</a>
+    </div>
+
+    <div class="about-column">
+      <h2>Community</h2>
+      <a href="https://discord.com/invite/NGfqunjNM" target="_blank">
+        Discord server
+      </a>
+      <a href="https://www.youtube.com/@CodeaAndGamet" target="_blank">
+        YouTube channel
+      </a>
+      <a href="https://scratch.mit.edu/users/CodeNGamet/" target="_blank">
+        Scratch profile
+      </a>
+      <a href="mailto:CodeNGamet@proton.me">
+        Contact CodeNGamet
+      </a>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2026 CodeNGamet</p>
+    <p>
+      <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE"
+         target="_blank">
+        License
+      </a>
+    </p>
+  </footer>
+
+</body>
+</html>
+
