@@ -3,698 +3,557 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>CodeNGamet</title>
   <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #333;
-      background: #fff;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #222;
     }
 
-    .top-header {
+    header {
       height: 78px;
       display: flex;
       align-items: center;
+      padding: 0 30px;
+      border-bottom: 1px solid #ddd;
       background: #fff;
     }
 
-    .header-inner {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 28px;
+    header img {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    nav {
+      background: #f3f3f3;
+      padding: 12px 30px;
       display: flex;
       align-items: center;
+      gap: 22px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      color: #111;
-      text-decoration: none;
-    }
-
-    .brand img {
-      width: 44px;
-      height: 44px;
-      margin-right: 10px;
-      object-fit: contain;
-    }
-
-    .brand-name {
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    .nav-bar {
-      min-height: 45px;
-      background: #f4f5f6;
-    }
-
-    .nav-inner {
-      width: 100%;
-      max-width: 1320px;
-      min-height: 45px;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-left,
-    .nav-right {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-bar a {
-      height: 45px;
-      display: flex;
-      align-items: center;
-      padding: 0 15px;
+    nav a {
       color: #333;
-      font-size: 16px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-bar a:hover {
-      color: #000;
-      background: #e9eaec;
-    }
-
-    .search {
-      display: flex;
-      align-items: center;
-      margin-left: 10px;
-    }
-
-    .search input {
-      width: 180px;
-      height: 32px;
-      padding: 0 10px;
-      border: 1px solid #ccc;
-      background: #fff;
-      font-size: 14px;
-    }
-
-    .search button {
-      height: 32px;
-      padding: 0 12px;
-      border: 1px solid #ccc;
-      border-left: 0;
-      background: #fff;
-      cursor: pointer;
-    }
-
-    .search button:hover {
-      background: #e9eaec;
-    }
-
-    /* MAIN */
-
-    .main {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 55px 28px 65px;
-    }
-
-    .welcome {
-      margin-bottom: 45px;
-    }
-
-    .welcome h1 {
-      margin: 0 0 10px;
-      font-size: 38px;
-    }
-
-    .welcome p {
-      margin: 0;
-      color: #666;
-      font-size: 17px;
-    }
-
-    .catalog-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-    }
-
-    .catalog-header h2 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    .catalog-header a {
-      color: #555;
       text-decoration: none;
       font-size: 15px;
     }
 
-    .catalog-header a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
 
-    /* GAME CARDS */
+    .search {
+      margin-left: auto;
+    }
 
-    .game-grid {
+    .search input {
+      padding: 7px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 180px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 45px 25px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .welcome h2 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #666;
+      font-size: 17px;
+    }
+
+    .section-title {
+      font-size: 27px;
+      margin-bottom: 22px;
+    }
+
+    .games {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 20px;
     }
 
     .game-card {
       border: 1px solid #ddd;
-      background: #fff;
       border-radius: 8px;
-      overflow: hidden;
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-
-    .game-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+      padding: 18px;
+      background: #fff;
     }
 
     .game-icon {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #e9eaec;
+      height: 110px;
+      background: #f1f1f1;
+      border-radius: 6px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #999;
+      font-size: 13px;
     }
 
-    .game-icon::after {
-      content: "Game icon";
-      color: #888;
-      font-size: 14px;
-    }
-
-    .game-info {
-      padding: 15px;
-    }
-
-    .game-info h3 {
+    .game-card h3 {
       margin: 0 0 7px;
-      font-size: 18px;
-      color: #222;
+      font-size: 19px;
     }
 
-    .game-info p {
-      min-height: 40px;
-      margin: 0 0 13px;
+    .game-card p {
       color: #666;
       font-size: 14px;
-      line-height: 1.4;
+      margin-bottom: 15px;
     }
 
-    .game-type {
-      display: inline-block;
-      margin-bottom: 13px;
-      padding: 4px 7px;
-      background: #f1f1f1;
-      border-radius: 4px;
-      color: #666;
-      font-size: 12px;
-    }
-
-    .view-button {
-      display: inline-block;
-      padding: 8px 12px;
+    .game-card button {
+      width: 100%;
+      padding: 9px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      color: #333;
-      background: #fff;
-      text-decoration: none;
-      font-size: 14px;
+      background: #eee;
+      color: #777;
+      cursor: not-allowed;
     }
 
-    .view-button:hover {
-      background: #f1f1f1;
-    }
-
-    .no-results {
-      display: none;
-      padding: 35px 20px;
-      text-align: center;
-      color: #666;
+    .apps-box {
       border: 1px solid #ddd;
       border-radius: 8px;
-      margin-top: 5px;
+      padding: 25px;
+      background: #fafafa;
     }
 
-    /* ABOUT */
+    .apps-box h3 {
+      margin-top: 0;
+    }
+
+    .apps-box p {
+      color: #666;
+    }
 
     .about {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      padding: 45px 35px;
-      background: #f2f2f2;
+      margin-top: 70px;
+      padding: 35px 0;
       border-top: 1px solid #ddd;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
     }
 
-    .about-column h2 {
-      margin: 0 0 18px;
-      font-size: 20px;
+    .about h3 {
+      margin-top: 0;
     }
 
-    .about-column a {
+    .about a {
       display: block;
-      margin-bottom: 10px;
-      color: #555;
+      margin: 9px 0;
+      color: #444;
       text-decoration: none;
     }
 
-    .about-column a:hover {
-      color: #222;
+    .about a:hover {
       text-decoration: underline;
     }
 
-    .social-link {
-      display: flex !important;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .social-link img {
-      width: 22px;
-      height: 22px;
-    }
-
     footer {
-      padding: 20px;
       text-align: center;
-      background: #e8e8e8;
-      border-top: 1px solid #d0d0d0;
-    }
-
-    footer p {
-      margin: 6px;
+      padding: 25px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 14px;
     }
 
     footer a {
       color: #555;
+    }
+
+    /* Community popup */
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .community-modal {
+      width: min(420px, 100%);
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      padding: 25px;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .community-modal h2 {
+      margin: 0 35px 8px 0;
+    }
+
+    .community-modal p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      border: none;
+      background: none;
+      font-size: 25px;
+      color: #666;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #111;
+    }
+
+    .community-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .community-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      color: #333;
       text-decoration: none;
+      background: #fff;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .community-link:hover {
+      background: #f5f5f5;
     }
 
-    /* RESPONSIVE */
-
-    @media (max-width: 1100px) {
-      .game-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .nav-inner {
-        flex-wrap: wrap;
-      }
-    }
-
-    @media (max-width: 800px) {
-      .game-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .about {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .top-header {
-        height: 70px;
-      }
-
-      .header-inner,
-      .nav-inner {
-        padding: 0 15px;
-      }
-
-      .brand img {
-        width: 40px;
-        height: 40px;
-      }
-
-      .brand-name {
-        font-size: 25px;
-      }
-
-      .nav-inner {
-        display: block;
-        padding: 0;
-      }
-
-      .nav-left,
-      .nav-right {
-        width: 100%;
-      }
-
-      .nav-bar a {
-        padding: 0 12px;
-        font-size: 14px;
-      }
-
-      .search {
-        margin: 5px 12px 10px;
-      }
-
-      .search input {
-        width: 180px;
-      }
-
-      .main {
-        padding: 40px 15px 50px;
-      }
-
-      .welcome h1 {
-        font-size: 32px;
-      }
-
-      .game-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
-      }
+    .community-link img {
+      width: 24px;
+      height: 24px;
     }
   </style>
 </head>
 
 <body>
 
-  <header class="top-header">
-    <div class="header-inner">
-      <a class="brand" href="index.html">
-        <img src="favicon.png" alt="CodeNGamet">
-        <span class="brand-name">CodeNGamet</span>
-      </a>
-    </div>
+  <header>
+    <img src="favicon.png" alt="CodeNGamet logo">
+    <h1>CodeNGamet</h1>
   </header>
 
+  <nav>
+    <a href="https://codengamet.github.io/">Home</a>
+    <a href="#games">Games</a>
+    <a href="#apps">Apps</a>
+    <a href="#about">About</a>
 
-  <nav class="nav-bar">
-    <div class="nav-inner">
+    <!-- Community popup button -->
+    <a href="#" id="communityButton">Community</a>
 
-      <div class="nav-left">
-        <a href="index.html">Home</a>
-        <a href="#">Games</a>
-        <a href="#">Apps</a>
-        <a href="#">Projects</a>
-      </div>
+    <a href="https://github.com/CodeNGamet/codengamet.github.io">
+      Open Source
+    </a>
 
-      <div class="nav-right">
-        <a href="#">Downloads</a>
-        <a href="#">About</a>
-        <a href="#">Community</a>
-        <a href="mailto:CodeNGamet@proton.me">Contact</a>
+    <a href="https://codengamet.github.io/">Downloads</a>
 
-        <form class="search" id="searchForm">
-          <input
-            type="search"
-            id="searchInput"
-            placeholder="Search games & apps"
-            aria-label="Search games and apps">
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
-    </div>
+    <form class="search" id="searchForm">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search..."
+      >
+    </form>
   </nav>
 
+  <main>
 
-  <main class="main">
-
-    <div class="welcome">
-      <h1>CodeNGamet</h1>
+    <section class="welcome">
+      <h2>Welcome to CodeNGamet</h2>
       <p>We make fun games and useful apps for everyone to enjoy.</p>
-    </div>
+    </section>
 
+    <section id="games">
+      <h2 class="section-title">Games</h2>
 
-    <div class="catalog-header">
-      <h2>Games</h2>
-      <a href="#">View all games</a>
-    </div>
+      <div class="games">
 
-
-    <section class="game-grid" id="gameGrid">
-
-      <article class="game-card" data-search="forest explorer adventure forest">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="forest explorer adventure">
+          <div class="game-icon">Game icon</div>
           <h3>Forest Explorer</h3>
-          <p>Explore a large forest and see what you can find.</p>
-          <span class="game-type">Adventure</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Adventure</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="star hopper arcade space">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="star hopper arcade">
+          <div class="game-icon">Game icon</div>
           <h3>Star Hopper</h3>
-          <p>Travel through space and visit strange new worlds.</p>
-          <span class="game-type">Arcade</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Arcade</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="puzzle blocks puzzle">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="puzzle blocks puzzle">
+          <div class="game-icon">Game icon</div>
           <h3>Puzzle Blocks</h3>
-          <p>Put the pieces together and work through each level.</p>
-          <span class="game-type">Puzzle</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Puzzle</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="island quest exploration island">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="island quest exploration">
+          <div class="game-icon">Game icon</div>
           <h3>Island Quest</h3>
-          <p>Set out across a group of islands and uncover hidden areas.</p>
-          <span class="game-type">Exploration</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Exploration</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="robo lab simulation robot">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="robo lab simulation">
+          <div class="game-icon">Game icon</div>
           <h3>Robo Lab</h3>
-          <p>Experiment with machines inside your own workshop.</p>
-          <span class="game-type">Simulation</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Simulation</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="castle trails adventure castle">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="castle trails adventure">
+          <div class="game-icon">Game icon</div>
           <h3>Castle Trails</h3>
-          <p>Find your way through an old castle filled with secrets.</p>
-          <span class="game-type">Adventure</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Adventure</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="pixel rails strategy train railway">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="pixel rails strategy">
+          <div class="game-icon">Game icon</div>
           <h3>Pixel Rails</h3>
-          <p>Build railway lines and connect towns across the map.</p>
-          <span class="game-type">Strategy</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Strategy</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="deep space exploration space">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="deep space exploration">
+          <div class="game-icon">Game icon</div>
           <h3>Deep Space</h3>
-          <p>Take your ship beyond the known systems.</p>
-          <span class="game-type">Exploration</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Exploration</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="frog valley platformer frog">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="frog valley platformer">
+          <div class="game-icon">Game icon</div>
           <h3>Frog Valley</h3>
-          <p>Jump through a colorful valley and discover new areas.</p>
-          <span class="game-type">Platformer</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Platformer</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
 
-
-      <article class="game-card" data-search="mine valley exploration mining">
-        <div class="game-icon"></div>
-        <div class="game-info">
+        <div class="game-card" data-search="mine valley exploration">
+          <div class="game-icon">Game icon</div>
           <h3>Mine Valley</h3>
-          <p>Explore underground paths and search for useful materials.</p>
-          <span class="game-type">Exploration</span><br>
-          <a class="view-button" href="#">View game</a>
+          <p>Exploration</p>
+          <button disabled>Coming Soon</button>
         </div>
-      </article>
+
+      </div>
+    </section>
+
+    <section id="apps" style="margin-top: 70px;">
+      <h2 class="section-title">Apps</h2>
+
+      <div class="apps-box">
+        <h3>Apps Coming Soon</h3>
+        <p>
+          CodeNGamet apps are currently being planned and developed.
+        </p>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+
+      <div>
+        <h3>Follow CodeNGamet</h3>
+        <a href="https://www.youtube.com/@CodeaAndGamet">YouTube</a>
+        <a href="https://scratch.mit.edu/users/CodeNGamet/">Scratch</a>
+        <a href="https://discord.com/invite/NGfqunjNM">Discord</a>
+        <a href="mailto:CodeNGamet@proton.me">Proton Mail</a>
+      </div>
+
+      <div>
+        <h3>About CodeNGamet</h3>
+        <a href="#about">About us</a>
+        <a href="#about">Our goal</a>
+        <a href="#games">Games</a>
+        <a href="#apps">Apps</a>
+      </div>
+
+      <div id="community">
+        <h3>Community</h3>
+        <a href="https://discord.com/invite/NGfqunjNM">Discord server</a>
+        <a href="https://www.youtube.com/@CodeaAndGamet">YouTube channel</a>
+        <a href="https://scratch.mit.edu/users/CodeNGamet/">Scratch profile</a>
+        <a href="mailto:CodeNGamet@proton.me">Contact CodeNGamet</a>
+      </div>
+
+      <div>
+        <h3>Open Source</h3>
+        <a href="https://github.com/CodeNGamet/codengamet.github.io">
+          CodeNGamet GitHub
+        </a>
+        <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE">
+          License
+        </a>
+      </div>
 
     </section>
 
-    <div class="no-results" id="noResults">
-      No games or apps found.
-    </div>
-
   </main>
 
-
-  <section class="about">
-
-    <div class="about-column">
-      <h2>Follow CodeNGamet</h2>
-
-      <a class="social-link"
-         href="https://www.youtube.com/@CodeaAndGamet"
-         target="_blank">
-        <img
-          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg"
-          alt="YouTube">
-        YouTube
-      </a>
-
-      <a class="social-link"
-         href="https://scratch.mit.edu/users/CodeNGamet/"
-         target="_blank">
-        <img
-          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg"
-          alt="Scratch">
-        Scratch
-      </a>
-
-      <a class="social-link"
-         href="https://discord.com/invite/NGfqunjNM"
-         target="_blank">
-        <img
-          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg"
-          alt="Discord">
-        Discord
-      </a>
-
-      <a class="social-link"
-         href="mailto:CodeNGamet@proton.me">
-        <img
-          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg"
-          alt="Proton Mail">
-        Proton Mail
-      </a>
-    </div>
-
-
-    <div class="about-column">
-      <h2>About CodeNGamet</h2>
-      <a href="#">About us</a>
-      <a href="#">Our goal</a>
-      <a href="#">Games</a>
-      <a href="#">Apps</a>
-    </div>
-
-
-    <div class="about-column">
-      <h2>Projects</h2>
-      <a href="#">Games</a>
-      <a href="#">Apps</a>
-      <a href="#">Downloads</a>
-      <a href="#">Open source</a>
-    </div>
-
-
-    <div class="about-column">
-      <h2>Community</h2>
-
-      <a href="https://discord.com/invite/NGfqunjNM" target="_blank">
-        Discord server
-      </a>
-
-      <a href="https://www.youtube.com/@CodeaAndGamet" target="_blank">
-        YouTube channel
-      </a>
-
-      <a href="https://scratch.mit.edu/users/CodeNGamet/" target="_blank">
-        Scratch profile
-      </a>
-
-      <a href="mailto:CodeNGamet@proton.me">
-        Contact CodeNGamet 742
-      </a>
-    </div>
-
-  </section>
-
-
   <footer>
-    <p>© 2026 CodeNGamet</p>
-
-    <p>
-      <a
-        href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE"
-        target="_blank">
-        License
-      </a>
-    </p>
+    © 2026 CodeNGamet ·
+    <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE">
+      License
+    </a>
   </footer>
 
 
+  <!-- Community popup -->
+
+  <div
+    class="modal-overlay"
+    id="communityModal"
+    aria-hidden="true"
+  >
+    <div
+      class="community-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="communityTitle"
+    >
+
+      <button
+        class="modal-close"
+        id="closeCommunity"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <h2 id="communityTitle">CodeNGamet Community</h2>
+
+      <p>Find CodeNGamet online.</p>
+
+      <div class="community-links">
+
+        <a
+          class="community-link"
+          href="https://www.youtube.com/@CodeaAndGamet"
+          target="_blank"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg"
+            alt=""
+          >
+          YouTube
+        </a>
+
+        <a
+          class="community-link"
+          href="https://scratch.mit.edu/users/CodeNGamet/"
+          target="_blank"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg"
+            alt=""
+          >
+          Scratch
+        </a>
+
+        <a
+          class="community-link"
+          href="https://discord.com/invite/NGfqunjNM"
+          target="_blank"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg"
+            alt=""
+          >
+          Discord
+        </a>
+
+        <a
+          class="community-link"
+          href="mailto:CodeNGamet@proton.me"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg"
+            alt=""
+          >
+          Proton Mail
+        </a>
+
+        <a
+          class="community-link"
+          href="https://github.com/CodeNGamet/codengamet.github.io"
+          target="_blank"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/github.svg"
+            alt=""
+          >
+          GitHub
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+
   <script>
-    const searchForm = document.getElementById("searchForm");
+    /* Search */
+
     const searchInput = document.getElementById("searchInput");
-    const gameCards = document.querySelectorAll(".game-card");
-    const noResults = document.getElementById("noResults");
+    const searchForm = document.getElementById("searchForm");
+    const games = document.querySelectorAll(".game-card");
 
     function searchGames() {
-      const searchText = searchInput.value.toLowerCase().trim();
-      let found = 0;
+      const search = searchInput.value.toLowerCase().trim();
+      let found = false;
 
-      gameCards.forEach(function(card) {
-        const searchableText = card.dataset.search.toLowerCase();
+      games.forEach(game => {
+        const text = game.dataset.search.toLowerCase();
 
-        if (searchableText.includes(searchText)) {
-          card.style.display = "";
-          found++;
+        if (text.includes(search)) {
+          game.style.display = "";
+          found = true;
         } else {
-          card.style.display = "none";
+          game.style.display = "none";
         }
       });
-
-      if (found === 0) {
-        noResults.style.display = "block";
-      } else {
-        noResults.style.display = "none";
-      }
     }
 
     searchInput.addEventListener("input", searchGames);
@@ -703,8 +562,71 @@
       event.preventDefault();
       searchGames();
     });
+
+
+    /* Community popup */
+
+    const communityButton =
+      document.getElementById("communityButton");
+
+    const communityModal =
+      document.getElementById("communityModal");
+
+    const closeCommunity =
+      document.getElementById("closeCommunity");
+
+
+    function openCommunity(event) {
+      event.preventDefault();
+
+      communityModal.classList.add("show");
+      communityModal.setAttribute("aria-hidden", "false");
+    }
+
+
+    function closeCommunityModal() {
+      communityModal.classList.remove("show");
+      communityModal.setAttribute("aria-hidden", "true");
+    }
+
+
+    communityButton.addEventListener(
+      "click",
+      openCommunity
+    );
+
+
+    closeCommunity.addEventListener(
+      "click",
+      closeCommunityModal
+    );
+
+
+    /* Close when clicking outside the window */
+
+    communityModal.addEventListener(
+      "click",
+      function(event) {
+        if (event.target === communityModal) {
+          closeCommunityModal();
+        }
+      }
+    );
+
+
+    /* Close with Escape */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+        if (event.key === "Escape") {
+          closeCommunityModal();
+        }
+      }
+    );
   </script>
 
 </body>
 </html>
+
 
