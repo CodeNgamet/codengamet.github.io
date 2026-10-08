@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +40,7 @@
       padding: 12px 30px;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 22px;
     }
 
@@ -103,15 +105,21 @@
     }
 
     .game-icon {
-      height: 110px;
+      height: 140px;
       background: #f1f1f1;
       border-radius: 6px;
       margin-bottom: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #999;
-      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .game-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .game-card h3 {
@@ -125,8 +133,34 @@
       margin-bottom: 15px;
     }
 
-    .game-card button {
+    .download-button {
+      display: block;
+      box-sizing: border-box;
       width: 100%;
+      padding: 11px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      background: #eee;
+      color: #222;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .download-button:hover {
+      background: #ddd;
+    }
+
+    .download-note {
+      margin-top: 12px;
+      font-size: 12px !important;
+      color: #777;
+    }
+
+    .coming-soon {
+      width: 100%;
+      box-sizing: border-box;
       padding: 9px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -205,6 +239,7 @@
 
     .community-modal {
       width: min(420px, 100%);
+      box-sizing: border-box;
       background: white;
       border: 1px solid #ddd;
       border-radius: 9px;
@@ -278,21 +313,18 @@
     <a href="#games">Games</a>
     <a href="#apps">Apps</a>
     <a href="#about">About</a>
-
-    <!-- Community popup button -->
     <a href="#" id="communityButton">Community</a>
-
     <a href="https://github.com/CodeNGamet/codengamet.github.io">
       Open Source
     </a>
-
-    <a href="https://codengamet.github.io/">Downloads</a>
+    <a href="#games">Downloads</a>
 
     <form class="search" id="searchForm">
       <input
         type="search"
         id="searchInput"
         placeholder="Search..."
+        aria-label="Search games"
       >
     </form>
   </nav>
@@ -313,70 +345,87 @@
           <div class="game-icon">Game icon</div>
           <h3>Forest Explorer</h3>
           <p>Adventure</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
-        <div class="game-card" data-search="star hopper arcade">
-          <div class="game-icon">Game icon</div>
+        <!-- Star Hopper download -->
+        <div class="game-card"
+             data-search="star hopper arcade space shooter linux">
+
+          <div class="game-icon">
+            <img src="StarHopper.png" alt="Star Hopper logo">
+          </div>
+
           <h3>Star Hopper</h3>
-          <p>Arcade</p>
-          <button disabled>Coming Soon</button>
+          <p>Retro two-player arcade space shooter.</p>
+
+          <a
+            class="download-button"
+            href="StarHopper-x86_64.AppImage"
+            download="StarHopper-x86_64.AppImage">
+            Download for Linux
+          </a>
+
+          <p class="download-note">
+            Linux x86_64 AppImage. Download, allow it to run if needed,
+            and open it.
+          </p>
         </div>
 
         <div class="game-card" data-search="puzzle blocks puzzle">
           <div class="game-icon">Game icon</div>
           <h3>Puzzle Blocks</h3>
           <p>Puzzle</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="island quest exploration">
           <div class="game-icon">Game icon</div>
           <h3>Island Quest</h3>
           <p>Exploration</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="robo lab simulation">
           <div class="game-icon">Game icon</div>
           <h3>Robo Lab</h3>
           <p>Simulation</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="castle trails adventure">
           <div class="game-icon">Game icon</div>
           <h3>Castle Trails</h3>
           <p>Adventure</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="pixel rails strategy">
           <div class="game-icon">Game icon</div>
           <h3>Pixel Rails</h3>
           <p>Strategy</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="deep space exploration">
           <div class="game-icon">Game icon</div>
           <h3>Deep Space</h3>
           <p>Exploration</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="frog valley platformer">
           <div class="game-icon">Game icon</div>
           <h3>Frog Valley</h3>
           <p>Platformer</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
         <div class="game-card" data-search="mine valley exploration">
           <div class="game-icon">Game icon</div>
           <h3>Mine Valley</h3>
           <p>Exploration</p>
-          <button disabled>Coming Soon</button>
+          <button class="coming-soon" disabled>Coming Soon</button>
         </div>
 
       </div>
@@ -440,98 +489,63 @@
     </a>
   </footer>
 
-
   <!-- Community popup -->
 
-  <div
-    class="modal-overlay"
-    id="communityModal"
-    aria-hidden="true"
-  >
+  <div class="modal-overlay" id="communityModal" aria-hidden="true">
     <div
       class="community-modal"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="communityTitle"
-    >
+      aria-labelledby="communityTitle">
 
       <button
         class="modal-close"
         id="closeCommunity"
-        aria-label="Close"
-      >
+        aria-label="Close">
         ×
       </button>
 
       <h2 id="communityTitle">CodeNGamet Community</h2>
-
       <p>Find CodeNGamet online.</p>
 
       <div class="community-links">
 
-        <a
-          class="community-link"
-          href="https://www.youtube.com/@CodeaAndGamet"
-          target="_blank"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg"
-            alt=""
-          >
+        <a class="community-link"
+           href="https://www.youtube.com/@CodeaAndGamet"
+           target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg" alt="">
           YouTube
         </a>
 
-        <a
-          class="community-link"
-          href="https://scratch.mit.edu/users/CodeNGamet/"
-          target="_blank"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg"
-            alt=""
-          >
+        <a class="community-link"
+           href="https://scratch.mit.edu/users/CodeNGamet/"
+           target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg" alt="">
           Scratch
         </a>
 
-        <a
-          class="community-link"
-          href="https://discord.com/invite/NGfqunjNM"
-          target="_blank"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg"
-            alt=""
-          >
+        <a class="community-link"
+           href="https://discord.com/invite/NGfqunjNM"
+           target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg" alt="">
           Discord
         </a>
 
-        <a
-          class="community-link"
-          href="mailto:CodeNGamet@proton.me"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg"
-            alt=""
-          >
+        <a class="community-link" href="mailto:CodeNGamet@proton.me">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg" alt="">
           Proton Mail
         </a>
 
-        <a
-          class="community-link"
-          href="https://github.com/CodeNGamet/codengamet.github.io"
-          target="_blank"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/github.svg"
-            alt=""
-          >
+        <a class="community-link"
+           href="https://github.com/CodeNGamet/codengamet.github.io"
+           target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/github.svg" alt="">
           GitHub
         </a>
 
       </div>
     </div>
   </div>
-
 
   <script>
     /* Search */
@@ -542,17 +556,10 @@
 
     function searchGames() {
       const search = searchInput.value.toLowerCase().trim();
-      let found = false;
 
       games.forEach(game => {
         const text = game.dataset.search.toLowerCase();
-
-        if (text.includes(search)) {
-          game.style.display = "";
-          found = true;
-        } else {
-          game.style.display = "none";
-        }
+        game.style.display = text.includes(search) ? "" : "none";
       });
     }
 
@@ -563,70 +570,40 @@
       searchGames();
     });
 
-
     /* Community popup */
 
-    const communityButton =
-      document.getElementById("communityButton");
-
-    const communityModal =
-      document.getElementById("communityModal");
-
-    const closeCommunity =
-      document.getElementById("closeCommunity");
-
+    const communityButton = document.getElementById("communityButton");
+    const communityModal = document.getElementById("communityModal");
+    const closeCommunity = document.getElementById("closeCommunity");
 
     function openCommunity(event) {
       event.preventDefault();
-
       communityModal.classList.add("show");
       communityModal.setAttribute("aria-hidden", "false");
+      closeCommunity.focus();
     }
-
 
     function closeCommunityModal() {
       communityModal.classList.remove("show");
       communityModal.setAttribute("aria-hidden", "true");
+      communityButton.focus();
     }
 
+    communityButton.addEventListener("click", openCommunity);
+    closeCommunity.addEventListener("click", closeCommunityModal);
 
-    communityButton.addEventListener(
-      "click",
-      openCommunity
-    );
-
-
-    closeCommunity.addEventListener(
-      "click",
-      closeCommunityModal
-    );
-
-
-    /* Close when clicking outside the window */
-
-    communityModal.addEventListener(
-      "click",
-      function(event) {
-        if (event.target === communityModal) {
-          closeCommunityModal();
-        }
+    communityModal.addEventListener("click", function(event) {
+      if (event.target === communityModal) {
+        closeCommunityModal();
       }
-    );
+    });
 
-
-    /* Close with Escape */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-        if (event.key === "Escape") {
-          closeCommunityModal();
-        }
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeCommunityModal();
       }
-    );
+    });
   </script>
 
 </body>
 </html>
-
-
