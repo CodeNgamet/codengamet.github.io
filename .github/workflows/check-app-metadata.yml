@@ -1,0 +1,27 @@
+name: Check Star Hopper metadata
+
+on:
+  push:
+    paths:
+      - "star-hopper.metainfo.xml"
+      - "screenshots/**"
+  pull_request:
+    paths:
+      - "star-hopper.metainfo.xml"
+      - "screenshots/**"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install AppStream validator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y appstream
+
+      - name: Validate metadata
+        run: appstreamcli validate star-hopper.metainfo.xml

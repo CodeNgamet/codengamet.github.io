@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>star-hopper.desktop</id>
+  <name>Star Hopper</name>
+  <summary>A retro arcade space shooter</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <description>
+    <p>
+      Star Hopper is a retro-inspired arcade space shooter
+      made by CodeNGamet.
+    </p>
+    <p>
+      Dodge enemies, shoot back, and try to achieve a high score.
+    </p>
+  </description>
+  <launchable type="desktop-id">star-hopper.desktop</launchable>
+  <url type="homepage">https://codengamet.github.io/</url>
+  <url type="vcs-browser">https://github.com/CodeNgamet/codengamet.github.io</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://codengamet.github.io/screenshots/1.png</image>
+      <caption>Star Hopper gameplay</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://codengamet.github.io/screenshots/2.png</image>
+      <caption>Star Hopper gameplay</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://codengamet.github.io/screenshots/3.png</image>
+      <caption>Star Hopper gameplay</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.3" date="2026-10-08">
+      <description>
+        <p>Star Hopper release.</p>
+      </description>
+    </release>
+  </releases>
+</component>
