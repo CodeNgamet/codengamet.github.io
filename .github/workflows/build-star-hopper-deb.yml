@@ -82,7 +82,7 @@ jobs:
 
           if [ -f star-hopper.metainfo.xml ]; then
             cp star-hopper.metainfo.xml \
-              "$PKG/usr/share/metainfo/star-hopper.desktop.metainfo.xml"
+              "$PKG/usr/share/metainfo/io.github.codengamet.StarHopper.metainfo.xml"
           fi
 
           for n in 1 2 3; do
