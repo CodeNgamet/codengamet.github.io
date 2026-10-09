@@ -1,0 +1,154 @@
+name: Build Star Hopper Debian package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'game/**'
+      - 'screenshots/**'
+      - 'star-hopper.metainfo.xml'
+      - '.github/workflows/build-star-hopper-deb.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+
+      - name: Install Java and packaging tools
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Check required files
+        shell: bash
+        run: |
+          set -eu
+          test -f game/StarHopper.java
+          echo "Source files:"
+          find game -maxdepth 1 -type f -printf '%f\n' | sort
+
+      - name: Compile game
+        shell: bash
+        run: |
+          set -eu
+          mkdir -p build/classes
+          javac --release 21 -encoding UTF-8 \
+            -d build/classes game/StarHopper.java
+          cp -n game/*.png build/classes/ 2>/dev/null || true
+          cp -n game/*.mp3 build/classes/ 2>/dev/null || true
+          cp -n game/*.ttf build/classes/ 2>/dev/null || true
+
+      - name: Assemble Debian package
+        shell: bash
+        run: |
+          set -eu
+          VERSION="1.0.3"
+          PKG="build/pkg"
+          mkdir -p "$PKG/DEBIAN" \
+            "$PKG/opt/starhopper" \
+            "$PKG/usr/bin" \
+            "$PKG/usr/share/applications" \
+            "$PKG/usr/share/icons/hicolor/256x256/apps" \
+            "$PKG/usr/share/metainfo" \
+            "$PKG/usr/share/doc/star-hopper" \
+            "$PKG/usr/share/starhopper/screenshots"
+
+          cp -a build/classes/. "$PKG/opt/starhopper/"
+          cp -n game/*.png "$PKG/opt/starhopper/" 2>/dev/null || true
+          cp -n game/*.mp3 "$PKG/opt/starhopper/" 2>/dev/null || true
+          cp -n game/*.ttf "$PKG/opt/starhopper/" 2>/dev/null || true
+
+          if [ -f game/StarHopper.png ]; then
+            cp game/StarHopper.png \
+              "$PKG/usr/share/icons/hicolor/256x256/apps/star-hopper.png"
+          elif [ -f StarHopper.png ]; then
+            cp StarHopper.png \
+              "$PKG/usr/share/icons/hicolor/256x256/apps/star-hopper.png"
+          fi
+
+          if [ -f LICENSE ]; then
+            cp LICENSE "$PKG/usr/share/doc/star-hopper/copyright"
+          else
+            echo "ERROR: Add the actual project LICENSE to the repository."
+            exit 1
+          fi
+
+          if [ -f star-hopper.metainfo.xml ]; then
+            cp star-hopper.metainfo.xml \
+              "$PKG/usr/share/metainfo/star-hopper.desktop.metainfo.xml"
+          fi
+
+          for n in 1 2 3; do
+            if [ -f "screenshots/$n.png" ]; then
+              cp "screenshots/$n.png" \
+                "$PKG/usr/share/starhopper/screenshots/$n.png"
+            fi
+          done
+
+          cat > "$PKG/DEBIAN/control" <<CONTROL
+          Package: star-hopper
+          Version: $VERSION
+          Section: games
+          Priority: optional
+          Architecture: all
+          Depends: openjdk-21-jre
+          Maintainer: CodeNGamet <ArcadeLegendX@proton.me>
+          Homepage: https://codengamet.github.io/
+          Description: Retro arcade space shooter
+           Star Hopper is a retro-inspired arcade space shooter
+           created by CodeNGamet.
+          CONTROL
+
+          cat > "$PKG/usr/bin/star-hopper" <<'LAUNCHER'
+          #!/bin/sh
+          cd /opt/starhopper
+          exec java -cp /opt/starhopper StarHopper "$@"
+          LAUNCHER
+          chmod 755 "$PKG/usr/bin/star-hopper"
+
+          cat > "$PKG/usr/share/applications/star-hopper.desktop" <<'DESKTOP'
+          [Desktop Entry]
+          Type=Application
+          Name=Star Hopper
+          GenericName=Arcade Game
+          Comment=A retro arcade space shooter
+          Exec=star-hopper
+          Icon=star-hopper
+          Terminal=false
+          Categories=Game;ArcadeGame;
+          StartupNotify=true
+          DESKTOP
+
+          chmod 755 "$PKG/DEBIAN"
+          dpkg-deb --root-owner-group --build "$PKG" \
+            "build/star-hopper_${VERSION}_all.deb"
+
+          dpkg-deb --info "build/star-hopper_${VERSION}_all.deb"
+          echo "Built package:"
+          ls -lh build/*.deb
+
+      - name: Upload package as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Star-Hopper-Debian-Package
+          path: build/*.deb
+          if-no-files-found: error
+
+      - name: Attach package to existing GitHub release
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -eu
+          gh release view star-hopper \
+            --repo "$GITHUB_REPOSITORY"
+          gh release upload star-hopper build/*.deb \
+            --repo "$GITHUB_REPOSITORY"
