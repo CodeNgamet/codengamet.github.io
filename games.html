@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeNGamet — Games</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #222; }
+  header { min-height: 78px; display: flex; align-items: center; padding: 12px 30px; border-bottom: 1px solid #ddd; background: #fff; }
+  header img { width: 42px; height: 42px; margin-right: 12px; }
+  header h1 { font-size: 24px; margin: 0; }
+  nav { background: #f3f3f3; padding: 0 30px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-height: 48px; }
+  nav a { color: #333; text-decoration: none; font-size: 15px; padding: 15px 12px; display: inline-block; border-bottom: 2px solid transparent; }
+  nav a:hover { background: #e9e9e9; }
+  nav a.active { border-bottom-color: #333; font-weight: bold; }
+  nav .nav-spacer { flex: 1; }
+  .search { margin: 6px 0 6px auto; }
+  .search input { padding: 7px 10px; border: 1px solid #ccc; border-radius: 5px; width: 180px; }
+  main { max-width: 1100px; margin: auto; padding: 45px 25px; min-height: 55vh; }
+  .welcome { text-align: center; margin: 8px 0 46px; }
+  .welcome h2 { font-size: 34px; margin: 0 0 10px; }
+  .welcome p { color: #666; font-size: 17px; margin: 0; }
+  .section-title { font-size: 27px; margin: 0 0 22px; }
+  .section-intro { color: #666; margin: -10px 0 25px; line-height: 1.6; }
+  .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+  .game-card { border: 1px solid #ddd; border-radius: 8px; padding: 18px; background: #fff; }
+  .game-icon { height: 140px; background: #f1f1f1; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #777; }
+  .game-icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .game-card h3 { margin: 0 0 7px; font-size: 19px; }
+  .game-card p { color: #666; font-size: 14px; margin: 0 0 15px; line-height: 1.5; }
+  .download-button, .game-page-link, .home-link { display: inline-block; box-sizing: border-box; padding: 11px 15px; border: 1px solid #bbb; border-radius: 5px; background: #eee; color: #222; text-align: center; text-decoration: none; font-size: 14px; font-weight: bold; }
+  .download-button:hover, .game-page-link:hover, .home-link:hover { background: #ddd; }
+  .game-page-link { display: block; width: 100%; }
+  .coming-soon { width: 100%; box-sizing: border-box; padding: 9px; border: 1px solid #ccc; border-radius: 5px; background: #eee; color: #777; cursor: not-allowed; }
+  .download-note { margin-top: 12px; font-size: 12px !important; color: #777; }
+  .apps-box, .feature-box, .home-panel { border: 1px solid #ddd; border-radius: 8px; padding: 25px; background: #fafafa; }
+  .apps-box h3, .feature-box h3, .home-panel h3 { margin: 0 0 10px; }
+  .apps-box p, .feature-box p, .home-panel p { color: #666; line-height: 1.6; }
+  .home-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 0 0 50px; }
+  .feature-layout { display: grid; grid-template-columns: 180px 1fr; gap: 22px; align-items: center; }
+  .feature-layout img { display: block; width: 100%; max-height: 150px; object-fit: contain; background: #f1f1f1; border-radius: 6px; }
+  .about { margin-top: 60px; padding: 35px 0; border-top: 1px solid #ddd; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; }
+  .about h3 { margin-top: 0; }
+  .about a { display: block; margin: 9px 0; color: #444; text-decoration: none; }
+  .about a:hover { text-decoration: underline; }
+  footer { text-align: center; padding: 25px; border-top: 1px solid #ddd; color: #777; font-size: 14px; }
+  footer a { color: #555; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); align-items: center; justify-content: center; padding: 20px; z-index: 1000; }
+  .modal-overlay.show { display: flex; }
+  .community-modal { width: min(420px, 100%); box-sizing: border-box; background: #fff; border: 1px solid #ddd; border-radius: 9px; padding: 25px; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+  .community-modal h2 { margin: 0 35px 8px 0; }
+  .community-modal p { color: #666; margin-bottom: 20px; }
+  .modal-close { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 25px; color: #666; cursor: pointer; line-height: 1; }
+  .modal-close:hover { color: #111; }
+  .community-links { display: grid; gap: 10px; }
+  .community-link { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid #ddd; border-radius: 6px; color: #333; text-decoration: none; background: #fff; }
+  .community-link:hover { background: #f5f5f5; }
+  .community-link img { width: 24px; height: 24px; }
+  .game-detail { max-width: 1000px; margin: 0 auto; }
+  .back-link { display: inline-block; margin-bottom: 28px; color: #444; text-decoration: none; font-size: 14px; }
+  .back-link:hover { text-decoration: underline; }
+  .detail-layout { display: grid; grid-template-columns: minmax(220px, 330px) 1fr; gap: 38px; align-items: center; padding: 25px; border: 1px solid #ddd; border-radius: 8px; background: #fff; }
+  .detail-icon { min-height: 230px; display: flex; align-items: center; justify-content: center; padding: 15px; background: #f1f1f1; border-radius: 6px; }
+  .detail-icon img { display: block; max-width: 100%; max-height: 270px; object-fit: contain; }
+  .game-status { margin: 0 0 8px; color: #666; font-size: 13px; }
+  .detail-copy h2 { margin: 0 0 12px; font-size: 34px; }
+  .detail-copy > p:not(.game-status):not(.download-note) { color: #666; line-height: 1.6; }
+  .detail-copy .download-button { max-width: 260px; margin-top: 22px; }
+  .game-information { margin-top: 45px; padding-top: 28px; border-top: 1px solid #ddd; }
+  .game-information p { color: #555; line-height: 1.7; }
+  @media (max-width: 650px) {
+    header { padding: 12px 18px; }
+    nav { padding: 0 10px; gap: 0; }
+    nav a { padding: 14px 9px; font-size: 14px; }
+    .search { width: 100%; margin: 6px 8px 10px; }
+    .search input { box-sizing: border-box; width: 100%; }
+    main { padding: 32px 18px; }
+    .welcome h2 { font-size: 28px; }
+    .feature-layout, .detail-layout { grid-template-columns: 1fr; gap: 24px; }
+    .feature-layout img { max-width: 220px; }
+    .detail-layout { padding: 18px; }
+    .detail-icon { min-height: 180px; }
+    .detail-copy h2 { font-size: 29px; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <img src="favicon.png" alt="CodeNGamet logo">
+    <h1>CodeNGamet</h1>
+  </header>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="games.html" class="active" aria-current="page">Games</a>
+    <a href="apps.html">Apps</a>
+    <a href="index.html#about">About</a>
+    <a href="#" id="communityButton">Community</a>
+    <a href="https://github.com/CodeNGamet/codengamet.github.io">Open Source</a>
+    <form class="search" id="searchForm" role="search">
+      <input type="search" id="searchInput" placeholder="Search games..." aria-label="Search games">
+    </form>
+  </nav>
+<main>
+
+  <section>
+    <h2 class="section-title">Games</h2>
+    <p class="section-intro">Browse CodeNGamet games. Released games can be opened; unfinished games are shown as Coming Soon.</p>
+    <div class="games" id="gameList">
+      <article class="game-card" id="star-hopper" data-search="star hopper arcade space shooter linux">
+        <div class="game-icon"><img src="icons/star-hopper.png" alt="Star Hopper logo"></div>
+        <h3>Star Hopper</h3>
+        <p>Retro two-player arcade space shooter.</p>
+        <a class="game-page-link" href="games/star-hopper.html">View game</a>
+      </article>
+
+      <article class="game-card" data-search="forest explorer adventure">
+        <div class="game-icon"><img src="icons/forest-explorer.png" alt="Forest Explorer icon" loading="lazy"></div>
+        <h3>Forest Explorer</h3>
+        <p>Adventure</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="puzzle blocks puzzle">
+        <div class="game-icon"><img src="icons/puzzle-blocks.png" alt="Puzzle Blocks icon" loading="lazy"></div>
+        <h3>Puzzle Blocks</h3>
+        <p>Puzzle</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="island quest exploration">
+        <div class="game-icon"><img src="icons/island-quest.png" alt="Island Quest icon" loading="lazy"></div>
+        <h3>Island Quest</h3>
+        <p>Exploration</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="robo lab simulation">
+        <div class="game-icon"><img src="icons/robo-lab.png" alt="Robo Lab icon" loading="lazy"></div>
+        <h3>Robo Lab</h3>
+        <p>Simulation</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="castle trails adventure">
+        <div class="game-icon"><img src="icons/castle-trails.png" alt="Castle Trails icon" loading="lazy"></div>
+        <h3>Castle Trails</h3>
+        <p>Adventure</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="pixel rails strategy">
+        <div class="game-icon"><img src="icons/pixel-rails.png" alt="Pixel Rails icon" loading="lazy"></div>
+        <h3>Pixel Rails</h3>
+        <p>Strategy</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="deep space exploration">
+        <div class="game-icon"><img src="icons/deep-space.png" alt="Deep Space icon" loading="lazy"></div>
+        <h3>Deep Space</h3>
+        <p>Exploration</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="frog valley platformer">
+        <div class="game-icon"><img src="icons/frog-valley.png" alt="Frog Valley icon" loading="lazy"></div>
+        <h3>Frog Valley</h3>
+        <p>Platformer</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+      <article class="game-card" data-search="mine valley exploration">
+        <div class="game-icon"><img src="icons/mine-valley.png" alt="Mine Valley icon" loading="lazy"></div>
+        <h3>Mine Valley</h3>
+        <p>Exploration</p>
+        <button class="coming-soon" type="button" disabled>Coming Soon</button>
+      </article>
+
+    </div>
+    <p id="noResults" hidden>No games matched your search.</p>
+  </section>
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const searchForm = document.getElementById("searchForm");
+    const gameCards = document.querySelectorAll(".game-card");
+    const noResults = document.getElementById("noResults");
+
+    function searchGames() {
+      const term = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+      gameCards.forEach(card => {
+        const searchableText = (card.dataset.search || card.textContent).toLowerCase();
+        const matches = searchableText.includes(term);
+        card.hidden = !matches;
+        if (matches) visibleCount++;
+      });
+      noResults.hidden = visibleCount !== 0;
+    }
+
+    searchInput.addEventListener("input", searchGames);
+    searchForm.addEventListener("submit", event => {
+      event.preventDefault();
+      searchGames();
+    });
+  </script>
+
+
+</main>
+<footer>
+    &copy; 2026 CodeNGamet &middot;
+    <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE">License</a>
+  </footer>
+
+  <div class="modal-overlay" id="communityModal" aria-hidden="true">
+    <div class="community-modal" role="dialog" aria-modal="true" aria-labelledby="communityTitle">
+      <button class="modal-close" id="closeCommunity" aria-label="Close">&times;</button>
+      <h2 id="communityTitle">CodeNGamet Community</h2>
+      <p>Find CodeNGamet online.</p>
+      <div class="community-links">
+        <a class="community-link" href="https://www.youtube.com/@CodeaAndGamet" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/youtube.svg" alt="">YouTube</a>
+        <a class="community-link" href="https://scratch.mit.edu/users/CodeNGamet/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/scratch.svg" alt="">Scratch</a>
+        <a class="community-link" href="https://discord.com/invite/NGfqunjNM" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/discord.svg" alt="">Discord</a>
+        <a class="community-link" href="mailto:CodeNGamet@proton.me"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/protonmail.svg" alt="">Proton Mail</a>
+        <a class="community-link" href="https://github.com/CodeNGamet/codengamet.github.io" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@16.34.0/icons/github.svg" alt="">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const communityButton = document.getElementById("communityButton");
+    const communityModal = document.getElementById("communityModal");
+    const closeCommunity = document.getElementById("closeCommunity");
+
+    function openCommunity(event) {
+      event.preventDefault();
+      communityModal.classList.add("show");
+      communityModal.setAttribute("aria-hidden", "false");
+      closeCommunity.focus();
+    }
+
+    function closeCommunityModal() {
+      communityModal.classList.remove("show");
+      communityModal.setAttribute("aria-hidden", "true");
+      communityButton.focus();
+    }
+
+    communityButton.addEventListener("click", openCommunity);
+    closeCommunity.addEventListener("click", closeCommunityModal);
+    communityModal.addEventListener("click", function(event) {
+      if (event.target === communityModal) closeCommunityModal();
+    });
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape" && communityModal.classList.contains("show")) closeCommunityModal();
+    });
+  </script>
+</body>
+</html>
