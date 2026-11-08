@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Hopper — CodeNGamet</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #222;
+    }
+
+    header {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    nav {
+      background: #f3f3f3;
+      padding: 12px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 45px 25px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 25px;
+      color: #444;
+      text-decoration: none;
+    }
+
+    .game-card {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 32px;
+      align-items: center;
+      padding: 22px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .game-icon {
+      min-height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f1f1f1;
+      border-radius: 6px;
+    }
+
+    .game-icon img {
+      max-width: 90%;
+      max-height: 260px;
+      object-fit: contain;
+    }
+
+    .status {
+      color: #666;
+      font-size: 13px;
+    }
+
+    h2 {
+      font-size: 27px;
+    }
+
+    .description {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .download-controls {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      margin-top: 20px;
+      max-width: 520px;
+    }
+
+    .download-button,
+    .platform-select {
+      min-height: 42px;
+      box-sizing: border-box;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      font: inherit;
+    }
+
+    .download-button {
+      flex: 1;
+      padding: 10px 14px;
+      background: #eee;
+      color: #222;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      opacity: .48;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .download-button.ready {
+      opacity: 1;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .download-button.ready:hover {
+      background: #ddd;
+    }
+
+    .platform-select {
+      width: 180px;
+      padding: 9px 10px;
+      background: white;
+      color: #222;
+    }
+
+    .download-note {
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .platform-details {
+      min-height: 42px;
+      margin: 10px 0 0;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section p,
+    .section li {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .screenshots img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f3f3f3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #555;
+    }
+
+    @media (max-width: 650px) {
+      .game-card {
+        grid-template-columns: 1fr;
+      }
+
+      .screenshots {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="../favicon.png" alt="CodeNGamet logo">
+    <h1>CodeNGamet</h1>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../games.html">Games</a>
+    <a href="../apps.html">Apps</a>
+    <a href="../index.html#about">About</a>
+    <a href="https://github.com/CodeNGamet/codengamet.github.io">
+      Open Source
+    </a>
+  </nav>
+
+  <main>
+
+    <a class="back-link" href="../games.html">
+      &larr; Back to games
+    </a>
+
+    <section class="game-card">
+
+      <div class="game-icon">
+        <img src="../icons/star-hopper.png" alt="Star Hopper">
+      </div>
+
+      <div>
+        <p class="status">Released game</p>
+
+        <h2>Star Hopper</h2>
+
+        <p class="description">
+          Star Hopper is a retro two-player arcade space shooter.
+          Pilot your spaceship through space, destroy incoming
+          enemies, dodge enemy attacks, and try to survive for
+          as long as possible.
+        </p>
+
+        <div class="download-controls">
+          <a class="download-button" id="download-button" aria-disabled="true" href="#">
+            Download
+          </a>
+          <select class="platform-select" id="platform-select" aria-label="Choose platform">
+            <option value="">Choose platform</option>
+            <option value="windows">Windows (.EXE)</option>
+            <option value="linux">Linux (.AppImage)</option>
+            <option value="android">Android (.APK)</option>
+          </select>
+        </div>
+        <p class="platform-details" id="platform-details" aria-live="polite">
+          Choose your platform to see its download and installation information.
+        </p>
+      </div>
+
+    </section>
+
+    <section class="section">
+      <h2>Screenshots</h2>
+
+      <div class="screenshots">
+        <img src="../screenshots/star-hopper/1.png"
+             alt="Star Hopper mode selection">
+
+        <img src="../screenshots/star-hopper/2.png"
+             alt="Star Hopper game over">
+
+        <img src="../screenshots/star-hopper/3.png"
+             alt="Star Hopper gameplay">
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>About Star Hopper</h2>
+
+      <p>
+        Star Hopper is an arcade space shooter where you control
+        a spaceship and fight against incoming enemy ships.
+        You can play alone or with another player on the same
+        computer.
+      </p>
+
+      <p>
+        Enemies enter from the top of the screen and move
+        downwards. Some enemies can also shoot bullets toward
+        the players. Your goal is to destroy enemies, earn
+        points, collect power-ups, and stay alive.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>How to Play</h2>
+
+      <p>
+        When the game opens, choose between one-player and
+        two-player mode. Press 1 for one player or 2 for
+        two players. Press Enter to start.
+      </p>
+
+      <p>
+        Each player begins with three lives. Shoot enemies
+        to earn points and avoid collisions and enemy bullets.
+        When a player loses all their lives, they cannot
+        continue playing that round.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Controls</h2>
+
+      <table>
+        <tr>
+          <th>Player</th>
+          <th>Movement</th>
+          <th>Shoot</th>
+        </tr>
+
+        <tr>
+          <td>Player 1</td>
+          <td>Arrow keys</td>
+          <td>Space</td>
+        </tr>
+
+        <tr>
+          <td>Player 2</td>
+          <td>W, A, S, D</td>
+          <td>Left Shift</td>
+        </tr>
+      </table>
+
+      <h3>Other controls</h3>
+
+      <ul>
+        <li><strong>P:</strong> Pause or resume the game.</li>
+        <li><strong>M:</strong> Return to the main menu.</li>
+        <li><strong>Enter:</strong> Play again after Game Over.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Enemies</h2>
+
+      <p>
+        There are three types of enemies in Star Hopper.
+        Each one behaves differently and gives a different
+        number of points.
+      </p>
+
+      <h3>Basic Enemy</h3>
+      <p>
+        The basic enemy moves down the screen and can drift
+        from side to side. Destroying one gives 10 points.
+      </p>
+
+      <h3>Fast Enemy</h3>
+      <p>
+        Fast enemies move more quickly than basic enemies.
+        They start appearing from level 2 and give 15 points.
+      </p>
+
+      <h3>Shooter Enemy</h3>
+      <p>
+        Shooter enemies can fire bullets toward the players.
+        They begin appearing from level 3 and give 20 points.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Levels and Waves</h2>
+
+      <p>
+        Star Hopper tracks your score, level, and wave.
+        Your level increases as the combined player scores
+        increase. Waves also advance as your score grows.
+      </p>
+
+      <p>
+        As the level gets higher, enemies spawn more often
+        and their movement becomes faster. Enemy attacks
+        also become more challenging.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Power-ups</h2>
+
+      <p>
+        Defeating an enemy has a chance to make a power-up
+        appear. Collect it with your spaceship to activate
+        rapid fire.
+      </p>
+
+      <p>
+        Power-ups also give you an extra life if you have
+        fewer than five lives remaining.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Game Over</h2>
+
+      <p>
+        In one-player mode, the game ends when Player 1
+        loses all their lives.
+      </p>
+
+      <p>
+        In two-player mode, the round continues as long as
+        at least one player is still alive. The game ends
+        when both players run out of lives.
+      </p>
+
+      <p>
+        After Game Over, press Enter to start another round
+        or M to return to the main menu.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 CodeNGamet &middot;
+    <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE">
+      License
+    </a>
+  </footer>
+
+  <script>
+    // These filenames must match the assets attached to the GitHub release.
+    const releaseBase = "https://github.com/CodeNgamet/codengamet.github.io/releases/download/star-hopper/";
+    const platforms = {
+      windows: {
+        label: "Download for Windows",
+        file: "StarHopper-Setup.exe",
+        details: "Windows installer (.EXE). Download and run the installer, then follow its setup steps."
+      },
+      linux: {
+        label: "Download for Linux",
+        file: "StarHopper-x86_64.AppImage",
+        details: "Linux x86_64 AppImage. Download it, allow it to run if needed, and open it."
+      },
+      android: {
+        label: "Download for Android",
+        file: "StarHopper.apk",
+        details: "Android package (.APK). Download the file and open it on your Android device to begin installation."
+      }
+    };
+
+    const platformSelect = document.getElementById("platform-select");
+    const downloadButton = document.getElementById("download-button");
+    const platformDetails = document.getElementById("platform-details");
+
+    platformSelect.addEventListener("change", () => {
+      const selected = platforms[platformSelect.value];
+
+      if (!selected) {
+        downloadButton.href = "#";
+        downloadButton.removeAttribute("download");
+        downloadButton.classList.remove("ready");
+        downloadButton.setAttribute("aria-disabled", "true");
+        downloadButton.textContent = "Download";
+        platformDetails.textContent = "Choose your platform to see its download and installation information.";
+        return;
+      }
+
+      downloadButton.href = releaseBase + encodeURIComponent(selected.file);
+      downloadButton.download = selected.file;
+      downloadButton.classList.add("ready");
+      downloadButton.setAttribute("aria-disabled", "false");
+      downloadButton.textContent = selected.label;
+      platformDetails.textContent = selected.details + " File: " + selected.file;
+    });
+  </script>
+
+</body>
+</html>

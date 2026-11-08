@@ -10,6 +10,21 @@ Game and app detail pages:
   Add future game pages directly inside games/ (for example, games/frog-valley.html).
   Add app pages directly inside apps/ (for example, apps/my-app.html).
 
+Star Hopper downloads:
+  Open Star Hopper using the single "View game" link. On its game page,
+  choose Windows, Linux, or Android. The Download button stays faded until
+  a platform is selected, then downloads that platform's release asset.
+
+  Expected GitHub release tag: star-hopper
+  Release assets configured in games/star-hopper.html:
+    StarHopper-Setup.exe
+    StarHopper-x86_64.AppImage
+    StarHopper.apk
+
+  Make sure the Windows and Android asset filenames above exactly match the
+  files attached to the GitHub release. If your release uses different names,
+  update the matching filenames in the platforms object in the page script.
+
 Images:
   favicon.png belongs in the main/root folder.
   Put game and app icons in icons/ using lowercase hyphenated names, such as
@@ -19,6 +34,3 @@ Images:
   screenshots/star-hopper/1.png
   screenshots/star-hopper/2.png
   screenshots/star-hopper/3.png
-
-The Star Hopper page is already set up to load its icon and these three screenshot paths.
-The screenshot and icon files are intentionally not included; add your own images.
