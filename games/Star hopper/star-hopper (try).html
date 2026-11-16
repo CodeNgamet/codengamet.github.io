@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Star Hopper — CodeNGamet</title>
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <style>
+    @font-face {
+      font-family: "Press Start 2P";
+      src: url("PressStart2P-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+
+    header {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+      object-fit: contain;
+    }
+
+    header h1 { font-size: 24px; margin: 0; }
+
+    nav {
+      background: #f3f3f3;
+      padding: 12px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    nav a { color: #333; text-decoration: none; font-size: 15px; }
+    nav a:hover { text-decoration: underline; }
+
+    main { max-width: 1000px; margin: auto; padding: 32px 25px 50px; }
+
+    .page-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .back-link, .reset-button {
+      display: inline-block;
+      color: #333;
+      text-decoration: none;
+      background: #f5f5f5;
+      border: 1px solid #d2d2d2;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .back-link:hover, .reset-button:hover { background: #eaeaea; }
+
+    .game-title { margin: 0 0 14px; font-size: 26px; }
+    .intro { color: #666; line-height: 1.65; margin: 0 0 20px; }
+
+    .game-shell {
+      padding: 10px;
+      border: 1px solid #cfd3dc;
+      border-radius: 8px;
+      background: #10182b;
+      box-shadow: 0 5px 18px rgba(0,0,0,.12);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      background: #0a0f23;
+      border-radius: 3px;
+      image-rendering: pixelated;
+      outline: none;
+      touch-action: manipulation;
+    }
+
+    .game-hint {
+      color: #c4cde0;
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 11px 4px 2px;
+    }
+
+    .section { margin-top: 36px; }
+    .section p, .section li { color: #555; line-height: 1.7; }
+    .section h2 { margin-bottom: 12px; }
+    .section h3 { margin-bottom: 5px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background: #f3f3f3; }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 14px;
+    }
+    footer a { color: #555; }
+
+    @media (max-width: 650px) {
+      header { padding: 0 16px; }
+      nav { padding: 12px 16px; gap: 15px; }
+      main { padding: 24px 12px 38px; }
+      .game-shell { padding: 5px; }
+      .game-title { font-size: 22px; }
+      th, td { padding: 8px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="../../favicon.png" alt="CodeNGamet logo">
+    <h1>CodeNGamet</h1>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../../games.html">Games</a>
+    <a href="../../apps.html">Apps</a>
+    <a href="../../index.html#about">About</a>
+    <a href="https://github.com/CodeNGamet/codengamet.github.io">Open Source</a>
+  </nav>
+
+  <main>
+    <div class="page-actions">
+      <a class="back-link" href="star-hopper.html">&larr; Back to Downloads</a>
+      <button class="reset-button" id="reset-button" type="button">Reset Game</button>
+    </div>
+
+    <h2 class="game-title">Star Hopper — Play Online</h2>
+    <p class="intro">Choose a game mode on the screen and start playing. This browser version recreates the Java game's two-player arcade gameplay using HTML Canvas, your original sprites, pixel font, and music.</p>
+
+    <section class="game-shell" aria-label="Star Hopper browser game">
+      <canvas id="star-hopper-game" width="800" height="600" tabindex="0" aria-label="Star Hopper game area"></canvas>
+      <p class="game-hint">Click the game area, then use your keyboard. Player 1: Arrow keys + Space. Player 2: W A S D + Left Shift. P pauses, M returns to the menu.</p>
+    </section>
+
+    <section class="section">
+      <h2>About Star Hopper</h2>
+      <p>Star Hopper is an arcade space shooter where you control a spaceship and fight against incoming enemy ships. You can play alone or with another player on the same computer.</p>
+      <p>Enemies enter from the top of the screen and move downwards. Some enemies can also shoot bullets toward the players. Your goal is to destroy enemies, earn points, collect power-ups, and stay alive.</p>
+    </section>
+
+    <section class="section">
+      <h2>How to Play</h2>
+      <p>When the game opens, choose between one-player and two-player mode. Press <strong>1</strong> for one player or <strong>2</strong> for two players. Press <strong>Enter</strong> to start.</p>
+      <p>Each player begins with three lives. Shoot enemies to earn points and avoid collisions and enemy bullets. When a player loses all their lives, they cannot continue playing that round.</p>
+    </section>
+
+    <section class="section">
+      <h2>Controls</h2>
+      <table>
+        <thead><tr><th>Player</th><th>Movement</th><th>Shoot</th></tr></thead>
+        <tbody>
+          <tr><td>Player 1</td><td>Arrow keys</td><td>Space</td></tr>
+          <tr><td>Player 2</td><td>W, A, S, D</td><td>Left Shift</td></tr>
+        </tbody>
+      </table>
+      <h3>Other controls</h3>
+      <ul>
+        <li><strong>P:</strong> Pause or resume the game.</li>
+        <li><strong>M:</strong> Return to the main menu.</li>
+        <li><strong>Enter:</strong> Start the selected mode or play again after Game Over.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Enemies</h2>
+      <p>There are three types of enemies in Star Hopper. Each one behaves differently and gives a different number of points.</p>
+      <h3>Basic Enemy</h3>
+      <p>The basic enemy moves down the screen and can drift from side to side. Destroying one gives 10 points.</p>
+      <h3>Fast Enemy</h3>
+      <p>Fast enemies move more quickly than basic enemies. They start appearing from level 2 and give 15 points.</p>
+      <h3>Shooter Enemy</h3>
+      <p>Shooter enemies can fire bullets toward the players. They begin appearing from level 3 and give 20 points.</p>
+    </section>
+
+    <section class="section">
+      <h2>Levels, Waves, and Power-ups</h2>
+      <p>Your level increases for every 100 combined points, and the wave increases for every 250 combined points. As the level rises, enemies spawn more often, move faster, and attack more frequently.</p>
+      <p>Defeating an enemy has a chance to make a power-up appear. Collect it with your spaceship to activate rapid fire. It also gives you an extra life if you have fewer than five lives remaining.</p>
+    </section>
+
+    <section class="section">
+      <h2>Game Over</h2>
+      <p>In one-player mode, the game ends when Player 1 loses all their lives. In two-player mode, the round continues as long as at least one player is alive. After Game Over, press Enter to start another round or M to return to the main menu.</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 CodeNGamet &middot;
+    <a href="https://github.com/CodeNGamet/codengamet.github.io/blob/main/LICENSE">License</a>
+  </footer>
+
+<script>
+(() => {
+  "use strict";
+
+  const WIDTH = 800;
+  const HEIGHT = 600;
+  const HUD_HEIGHT = 55;
+  const canvas = document.getElementById("star-hopper-game");
+  const ctx = canvas.getContext("2d");
+  const FONT = '"Press Start 2P", monospace';
+  const randomInt = (max) => Math.floor(Math.random() * max);
+  const randomFloat = (max) => Math.random() * max;
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+  const loadImage = (filename) => {
+    const image = new Image();
+    image.src = filename;
+    return image;
+  };
+
+  const images = {
+    playerOne: loadImage("player_one.png"),
+    playerTwo: loadImage("player_two.png"),
+    basic: loadImage("BASIC.png"),
+    shooter: loadImage("SHOOTER.png"),
+    fast: loadImage("FAST.png")
+  };
+
+  const music = new Audio("retro.mp3");
+  music.preload = "none";
+  music.loop = true;
+  music.volume = 0.45;
+  let musicStarted = false;
+
+  let stars = [];
+  let bullets = [];
+  let enemyBullets = [];
+  let enemies = [];
+  let particles = [];
+  let powerUps = [];
+  let player1;
+  let player2;
+  let mode = 0;
+  let selectedMode = 1;
+  let score1 = 0;
+  let score2 = 0;
+  let level = 1;
+  let wave = 1;
+  let started = false;
+  let gameOver = false;
+  let paused = false;
+  let spawnCooldown = 35;
+  let enemyShotCooldown = 70;
+  const heldKeys = new Set();
+
+  function makePlayer(id, x, color, image) {
+    return {
+      id, x, y: HEIGHT - 90, width: 50, height: 40,
+      lives: 3, alive: true,
+      left: false, right: false, up: false, down: false, shooting: false,
+      rapidFire: false, shootCooldown: 0, invincibility: 0,
+      color, image
+    };
+  }
+
+  function resetPlayer(player, x) {
+    player.x = x;
+    player.y = HEIGHT - 90;
+    player.lives = 3;
+    player.alive = true;
+    player.left = player.right = player.up = player.down = player.shooting = false;
+    player.rapidFire = false;
+    player.shootCooldown = 0;
+    player.invincibility = 0;
+  }
+
+  function initialize() {
+    player1 = makePlayer(1, WIDTH / 2 - 80, "rgb(70,190,255)", images.playerOne);
+    player2 = makePlayer(2, WIDTH / 2 + 30, "rgb(255,170,70)", images.playerTwo);
+    stars = Array.from({ length: 100 }, () => ({
+      x: randomInt(WIDTH), y: randomInt(HEIGHT),
+      size: 1 + randomInt(3), speed: 1 + randomInt(3)
+    }));
+  }
+
+  function beginMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+    music.play().catch(() => {
+      // Browsers may block audio until the next user interaction.
+      musicStarted = false;
+    });
+  }
+
+  function resetGame() {
+    score1 = 0;
+    score2 = 0;
+    level = 1;
+    wave = 1;
+    spawnCooldown = 30;
+    enemyShotCooldown = 65;
+    gameOver = false;
+    paused = false;
+    started = true;
+    bullets = [];
+    enemyBullets = [];
+    enemies = [];
+    particles = [];
+    powerUps = [];
+    resetPlayer(player1, WIDTH / 2 - 80);
+    if (mode === 2) {
+      resetPlayer(player2, WIDTH / 2 + 30);
+    } else {
+      player2.alive = false;
+      player2.lives = 0;
+    }
+    beginMusic();
+    canvas.focus();
+  }
+
+  function returnToMenu() {
+    started = false;
+    gameOver = false;
+    paused = false;
+    bullets = [];
+    enemyBullets = [];
+    enemies = [];
+    particles = [];
+    powerUps = [];
+    player1.alive = true;
+    player2.alive = true;
+    canvas.focus();
+  }
+
+  function anyPlayerAlive() {
+    return player1.alive || (mode === 2 && player2.alive);
+  }
+
+  function randomLivingPlayer() {
+    const p1Alive = player1.alive;
+    const p2Alive = mode === 2 && player2.alive;
+    if (p1Alive && p2Alive) return Math.random() < 0.5 ? player1 : player2;
+    if (p1Alive) return player1;
+    if (p2Alive) return player2;
+    return null;
+  }
+
+  function shoot(player) {
+    if (!player.alive || player.shootCooldown > 0) return;
+    bullets.push({
+      x: player.x + player.width / 2,
+      y: player.y - 8,
+      vx: 0,
+      vy: -10,
+      owner: player.id
+    });
+    player.shootCooldown = player.rapidFire ? 5 : 10;
+  }
+
+  function spawnEnemy() {
+    const roll = randomInt(100);
+    let type;
+    if (level >= 3 && roll < 20) type = "shooter";
+    else if (level >= 2 && roll < 38) type = "fast";
+    else type = "basic";
+
+    let size;
+    let speed;
+    if (type === "fast") {
+      size = 23 + randomInt(12);
+      speed = 2.8 + level * 0.20 + randomFloat(1);
+    } else if (type === "shooter") {
+      size = 45 + randomInt(10);
+      speed = 1.2 + level * 0.15 + randomFloat(0.7);
+    } else {
+      size = 48 + randomInt(16);
+      speed = 1.5 + level * 0.25 + randomFloat(1.5);
+    }
+
+    enemies.push({
+      x: randomInt(Math.max(1, WIDTH - size)), y: -size, size, speed, type,
+      drift: Math.random() < 0.5 ? -0.35 : 0.35
+    });
+  }
+
+  function enemyShoot(enemy) {
+    const target = randomLivingPlayer();
+    if (!target) return;
+    const startX = enemy.x + enemy.size / 2;
+    const startY = enemy.y + enemy.size;
+    const targetX = target.x + target.width / 2;
+    const targetY = target.y + target.height / 2;
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const distance = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+    const speed = 4 + Math.min(2, level * 0.12);
+    enemyBullets.push({
+      x: startX, y: startY,
+      vx: dx / distance * speed,
+      vy: dy / distance * speed
+    });
+  }
+
+  function rectsIntersect(a, b) {
+    return a.x < b.x + b.width && a.x + a.width > b.x &&
+           a.y < b.y + b.height && a.y + a.height > b.y;
+  }
+
+  function playerBounds(player) {
+    return { x: player.x + 5, y: player.y, width: player.width - 10, height: player.height - 5 };
+  }
+
+  function enemyBounds(enemy) {
+    return { x: enemy.x, y: enemy.y, width: enemy.size, height: enemy.size };
+  }
+
+  function damagePlayer(player) {
+    if (!player.alive || player.invincibility > 0) return;
+    player.lives -= 1;
+    player.invincibility = 90;
+    createExplosion(player.x + player.width / 2, player.y + player.height / 2, 30);
+    if (player.lives <= 0) {
+      player.lives = 0;
+      player.alive = false;
+      createExplosion(player.x + player.width / 2, player.y + player.height / 2, 50);
+      if (!anyPlayerAlive()) gameOver = true;
+    }
+  }
+
+  function createExplosion(x, y, amount) {
+    for (let i = 0; i < amount; i++) {
+      const angle = randomFloat(Math.PI * 2);
+      const speed = 1 + randomFloat(4);
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 25 + randomInt(30)
+      });
+    }
+  }
+
+  function updateStars() {
+    for (const star of stars) {
+      star.y += star.speed;
+      if (star.y > HEIGHT) {
+        star.y = 0;
+        star.x = randomInt(WIDTH);
+      }
+    }
+  }
+
+  function updateParticles() {
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 1;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function updatePlayer(player) {
+    if (!player.alive) return;
+    if (player.left) player.x -= 6;
+    if (player.right) player.x += 6;
+    if (player.up) player.y -= 6;
+    if (player.down) player.y += 6;
+    player.x = clamp(player.x, 5, WIDTH - player.width - 5);
+    player.y = clamp(player.y, HUD_HEIGHT + 8, HEIGHT - player.height - 5);
+    if (player.shootCooldown > 0) player.shootCooldown -= 1;
+    if (player.invincibility > 0) player.invincibility -= 1;
+  }
+
+  function updateBullets() {
+    for (const bullet of bullets) {
+      bullet.x += bullet.vx;
+      bullet.y += bullet.vy;
+    }
+    bullets = bullets.filter(b => b.y >= -30 && b.x >= -30 && b.x <= WIDTH + 30);
+
+    for (let bi = bullets.length - 1; bi >= 0; bi--) {
+      const bullet = bullets[bi];
+      const bulletRect = { x: bullet.x, y: bullet.y, width: 5, height: 14 };
+      let hit = false;
+      for (let ei = enemies.length - 1; ei >= 0; ei--) {
+        const enemy = enemies[ei];
+        if (!rectsIntersect(bulletRect, enemyBounds(enemy))) continue;
+        const points = enemy.type === "fast" ? 15 : enemy.type === "shooter" ? 20 : 10;
+        if (bullet.owner === 1) score1 += points;
+        else score2 += points;
+        createExplosion(enemy.x + enemy.size / 2, enemy.y + enemy.size / 2, 18);
+        if (randomInt(100) < 15) powerUps.push({ x: enemy.x + enemy.size / 2, y: enemy.y + enemy.size / 2 });
+        enemies.splice(ei, 1);
+        hit = true;
+        break;
+      }
+      if (hit) bullets.splice(bi, 1);
+    }
+  }
+
+  function updateEnemies() {
+    for (let i = enemies.length - 1; i >= 0; i--) {
+      const enemy = enemies[i];
+      enemy.y += enemy.speed;
+      enemy.x += enemy.drift;
+      if (enemy.x <= 4 || enemy.x + enemy.size >= WIDTH - 4) enemy.drift *= -1;
+      if (enemy.y > HEIGHT + 30) {
+        enemies.splice(i, 1);
+        continue;
+      }
+      if (player1.alive && rectsIntersect(enemyBounds(enemy), playerBounds(player1))) {
+        damagePlayer(player1);
+        enemies.splice(i, 1);
+        continue;
+      }
+      if (mode === 2 && player2.alive && rectsIntersect(enemyBounds(enemy), playerBounds(player2))) {
+        damagePlayer(player2);
+        enemies.splice(i, 1);
+      }
+    }
+  }
+
+  function updateEnemyBullets() {
+    for (const bullet of enemyBullets) {
+      bullet.x += bullet.vx;
+      bullet.y += bullet.vy;
+    }
+    enemyBullets = enemyBullets.filter(b => b.x >= -40 && b.x <= WIDTH + 40 && b.y >= -40 && b.y <= HEIGHT + 40);
+    for (let i = enemyBullets.length - 1; i >= 0; i--) {
+      const bullet = enemyBullets[i];
+      const bounds = { x: bullet.x - 4, y: bullet.y - 4, width: 8, height: 8 };
+      if (player1.alive && rectsIntersect(bounds, playerBounds(player1))) {
+        enemyBullets.splice(i, 1);
+        damagePlayer(player1);
+        continue;
+      }
+      if (mode === 2 && player2.alive && rectsIntersect(bounds, playerBounds(player2))) {
+        enemyBullets.splice(i, 1);
+        damagePlayer(player2);
+      }
+    }
+  }
+
+  function updatePowerUps() {
+    for (let i = powerUps.length - 1; i >= 0; i--) {
+      const powerUp = powerUps[i];
+      powerUp.y += 2;
+      if (powerUp.y > HEIGHT + 30) {
+        powerUps.splice(i, 1);
+        continue;
+      }
+      const bounds = { x: powerUp.x - 10, y: powerUp.y - 10, width: 20, height: 20 };
+      if (player1.alive && rectsIntersect(bounds, playerBounds(player1))) {
+        applyPowerUp(player1);
+        powerUps.splice(i, 1);
+        continue;
+      }
+      if (mode === 2 && player2.alive && rectsIntersect(bounds, playerBounds(player2))) {
+        applyPowerUp(player2);
+        powerUps.splice(i, 1);
+      }
+    }
+  }
+
+  function applyPowerUp(player) {
+    player.rapidFire = true;
+    if (player.lives < 5) player.lives += 1;
+  }
+
+  function updateGame() {
+    updateStars();
+    updateParticles();
+    if (!started || gameOver || paused) return;
+
+    updatePlayer(player1);
+    if (mode === 2) updatePlayer(player2);
+    if (player1.shooting) shoot(player1);
+    if (mode === 2 && player2.shooting) shoot(player2);
+
+    level = 1 + Math.floor((score1 + score2) / 100);
+    wave = 1 + Math.floor((score1 + score2) / 250);
+
+    spawnCooldown -= 1;
+    if (spawnCooldown <= 0) {
+      spawnEnemy();
+      spawnCooldown = Math.max(12, 55 - level * 3);
+    }
+
+    enemyShotCooldown -= 1;
+    if (enemyShotCooldown <= 0 && enemies.length > 0 && anyPlayerAlive()) {
+      const shots = level >= 5 ? 2 : 1;
+      for (let i = 0; i < shots; i++) {
+        const enemy = enemies[randomInt(enemies.length)];
+        if (enemy.type === "shooter") enemyShoot(enemy);
+        else if (randomInt(100) < 30) enemyShoot(enemy);
+      }
+      enemyShotCooldown = Math.max(25, 75 - level * 4);
+    }
+
+    updateBullets();
+    updateEnemies();
+    updateEnemyBullets();
+    updatePowerUps();
+  }
+
+  function setFont(size) {
+    ctx.font = `${size}px ${FONT}`;
+  }
+
+  function drawCentered(text, y) {
+    ctx.textAlign = "center";
+    ctx.fillText(text, WIDTH / 2, y);
+    ctx.textAlign = "left";
+  }
+
+  function drawBackground() {
+    ctx.fillStyle = "rgb(10,15,35)";
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    for (const star of stars) {
+      const brightness = Math.min(255, 100 + star.size * 45);
+      ctx.fillStyle = `rgb(${brightness},${brightness},${brightness})`;
+      ctx.fillRect(star.x, star.y, star.size, star.size);
+    }
+  }
+
+  function drawModeScreen() {
+    ctx.fillStyle = "white";
+    setFont(38);
+    drawCentered("STAR HOPPER", 120);
+    ctx.fillStyle = "rgb(70,190,255)";
+    setFont(15);
+    drawCentered("ARCADE SPACE SHOOTER", 160);
+    ctx.fillStyle = "white";
+    setFont(20);
+    drawCentered("CHOOSE MODE", 220);
+    ctx.fillStyle = selectedMode === 1 ? "rgb(255,230,70)" : "rgb(100,100,120)";
+    setFont(28);
+    drawCentered("1 PLAYER", 285);
+    ctx.fillStyle = selectedMode === 2 ? "rgb(255,230,70)" : "rgb(100,100,120)";
+    setFont(28);
+    drawCentered("2 PLAYER", 350);
+    ctx.fillStyle = "white";
+    setFont(12);
+    drawCentered("1 OR 2 TO SELECT", 420);
+    drawCentered("ENTER TO START", 450);
+    ctx.fillStyle = "rgb(160,160,180)";
+    setFont(10);
+    drawCentered("P1 ARROWS + SPACE", 495);
+    drawCentered("P2 WASD + SHIFT", 525);
+  }
+
+  function drawImageFit(image, x, y, maxWidth, maxHeight) {
+    if (!image || !image.complete || !image.naturalWidth) {
+      ctx.fillStyle = "#d94a55";
+      ctx.fillRect(x, y, maxWidth, maxHeight);
+      return;
+    }
+    const scale = Math.min(maxWidth / image.naturalWidth, maxHeight / image.naturalHeight);
+    const drawWidth = Math.max(1, image.naturalWidth * scale);
+    const drawHeight = Math.max(1, image.naturalHeight * scale);
+    ctx.drawImage(image, x + (maxWidth - drawWidth) / 2, y + (maxHeight - drawHeight) / 2, drawWidth, drawHeight);
+  }
+
+  function drawPlayer(player) {
+    if (!player.alive) return;
+    if (player.invincibility > 0 && Math.floor(player.invincibility / 5) % 2 === 1) return;
+    if (player.image && player.image.complete && player.image.naturalWidth) {
+      ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
+    } else {
+      ctx.fillStyle = player.color;
+      ctx.beginPath();
+      ctx.moveTo(player.x + player.width / 2, player.y);
+      ctx.lineTo(player.x + player.width - 2, player.y + 34);
+      ctx.lineTo(player.x + player.width / 2, player.y + 27);
+      ctx.lineTo(player.x + 2, player.y + 34);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      ctx.arc(player.x + 25, player.y + 14, 6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawGame() {
+    for (const enemy of enemies) {
+      const image = enemy.type === "basic" ? images.basic : enemy.type === "shooter" ? images.shooter : images.fast;
+      drawImageFit(image, enemy.x, enemy.y, enemy.size, enemy.size);
+    }
+
+    for (const powerUp of powerUps) {
+      ctx.fillStyle = "rgb(80,255,120)";
+      ctx.beginPath();
+      ctx.arc(powerUp.x, powerUp.y, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "black";
+      setFont(9);
+      ctx.textAlign = "center";
+      ctx.fillText("P", powerUp.x, powerUp.y + 3);
+      ctx.textAlign = "left";
+    }
+
+    for (const bullet of bullets) {
+      ctx.fillStyle = bullet.owner === 1 ? "rgb(255,240,100)" : "rgb(100,255,255)";
+      ctx.fillRect(bullet.x, bullet.y, 5, 14);
+    }
+
+    ctx.fillStyle = "rgb(255,80,80)";
+    for (const bullet of enemyBullets) {
+      ctx.beginPath();
+      ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    drawPlayer(player1);
+    if (mode === 2) drawPlayer(player2);
+
+    for (const p of particles) {
+      ctx.fillStyle = `rgba(255,170,40,${clamp(p.life * 8, 0, 255) / 255})`;
+      ctx.fillRect(p.x, p.y, 5, 5);
+    }
+
+    ctx.fillStyle = "rgb(15,20,40)";
+    ctx.fillRect(0, 0, WIDTH, HUD_HEIGHT);
+    setFont(10);
+    ctx.fillStyle = player1.color;
+    ctx.fillText(`P1 ${score1}  LIVES ${player1.lives}`, 10, 32);
+    if (mode === 2) {
+      ctx.fillStyle = player2.color;
+      ctx.fillText(`P2 ${score2}  LIVES ${player2.lives}`, 560, 32);
+    }
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(`LV ${level}  WAVE ${wave}`, 400, 32);
+    ctx.textAlign = "left";
+
+    if (paused) {
+      ctx.fillStyle = "rgba(0,0,0,.75)";
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+      ctx.fillStyle = "white";
+      setFont(35);
+      drawCentered("PAUSED", 280);
+      setFont(12);
+      drawCentered("P TO CONTINUE", 330);
+      drawCentered("M FOR MENU", 365);
+    }
+
+    if (gameOver) {
+      ctx.fillStyle = "rgba(0,0,0,.78)";
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+      ctx.fillStyle = "rgb(255,70,90)";
+      setFont(32);
+      drawCentered("GAME OVER", 220);
+      ctx.fillStyle = "white";
+      setFont(13);
+      if (mode === 2) {
+        drawCentered(`P1 ${score1}`, 285);
+        drawCentered(`P2 ${score2}`, 320);
+      } else {
+        drawCentered(`SCORE ${score1}`, 300);
+      }
+      setFont(10);
+      drawCentered("ENTER TO PLAY AGAIN", 375);
+      drawCentered("M FOR MAIN MENU", 410);
+    }
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawBackground();
+    if (!started) drawModeScreen();
+    else drawGame();
+  }
+
+  function setPlayerKey(key, isDown) {
+    const normalizedKey = key.length === 1 && key !== " " ? key.toLowerCase() : key;
+    const playerKeyMap = {
+      ArrowLeft: [player1, "left"], ArrowRight: [player1, "right"],
+      ArrowUp: [player1, "up"], ArrowDown: [player1, "down"],
+      " ": [player1, "shooting"]
+    };
+    if (mode === 2) {
+      playerKeyMap.a = [player2, "left"];
+      playerKeyMap.d = [player2, "right"];
+      playerKeyMap.w = [player2, "up"];
+      playerKeyMap.s = [player2, "down"];
+      playerKeyMap.Shift = [player2, "shooting"];
+    }
+    const entry = playerKeyMap[normalizedKey];
+    if (entry) entry[0][entry[1]] = isDown;
+  }
+
+  function onKeyDown(event) {
+    const key = event.key;
+    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "Shift"].includes(key)) event.preventDefault();
+    if (heldKeys.has(key)) return;
+    heldKeys.add(key);
+
+    if (!started) {
+      if (key === "1") selectedMode = 1;
+      else if (key === "2") selectedMode = 2;
+      else if (key === "Enter") {
+        mode = selectedMode;
+        resetGame();
+      }
+      return;
+    }
+
+    if (key.toLowerCase() === "m") {
+      returnToMenu();
+      return;
+    }
+    if (key.toLowerCase() === "p") {
+      if (!gameOver) paused = !paused;
+      return;
+    }
+    if (key === "Enter") {
+      if (gameOver) resetGame();
+      return;
+    }
+    if (paused || gameOver) return;
+    setPlayerKey(key, true);
+  }
+
+  function onKeyUp(event) {
+    heldKeys.delete(event.key);
+    setPlayerKey(event.key, false);
+  }
+
+  let previousFrameTime = 0;
+  let updateAccumulator = 0;
+  function gameLoop(timestamp) {
+    if (!previousFrameTime) previousFrameTime = timestamp;
+    updateAccumulator += Math.min(timestamp - previousFrameTime, 100);
+    previousFrameTime = timestamp;
+    while (updateAccumulator >= 16) {
+      updateGame();
+      updateAccumulator -= 16;
+    }
+    render();
+    window.requestAnimationFrame(gameLoop);
+  }
+
+  canvas.addEventListener("keydown", onKeyDown);
+  canvas.addEventListener("keyup", onKeyUp);
+  window.addEventListener("keydown", (event) => {
+    if (document.activeElement !== canvas && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(event.key)) {
+      canvas.focus();
+      onKeyDown(event);
+    }
+  });
+  window.addEventListener("keyup", onKeyUp);
+  window.addEventListener("blur", () => {
+    heldKeys.clear();
+    if (player1) player1.left = player1.right = player1.up = player1.down = player1.shooting = false;
+    if (player2) player2.left = player2.right = player2.up = player2.down = player2.shooting = false;
+  });
+
+  canvas.addEventListener("pointerdown", () => canvas.focus());
+  document.getElementById("reset-button").addEventListener("click", () => {
+    if (started) resetGame();
+    else {
+      mode = selectedMode;
+      resetGame();
+    }
+    canvas.focus();
+  });
+
+  initialize();
+  if (document.fonts && document.fonts.load) document.fonts.load(`16px ${FONT}`).catch(() => {});
+  render();
+  window.requestAnimationFrame(gameLoop);
+})();
+</script>
+</body>
+</html>

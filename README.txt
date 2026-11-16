@@ -5,25 +5,25 @@ Main pages:
   games.html  - Games catalogue
   apps.html   - Apps catalogue
 
-Game and app detail pages:
-  games/star-hopper.html
-  Add future game pages directly inside games/ (for example, games/frog-valley.html).
-  Add app pages directly inside apps/ (for example, apps/my-app.html).
+Star Hopper pages and assets:
+  games/Star hopper/star-hopper.html       - Game information and downloads
+  games/Star hopper/star-hopper (try).html - Browser-playable HTML5 game
 
-Star Hopper downloads:
-  Open Star Hopper using the single "View game" link. On its game page,
-  choose Windows, Linux, or Android. The Download button stays faded until
-  a platform is selected, then downloads that platform's release asset.
+The Star Hopper download page includes Windows, Linux, Android, and Java JAR
+options. The Java option downloads StarHopper.jar from the GitHub release:
+  https://github.com/CodeNGamet/codengamet.github.io/releases/download/star-hopper/StarHopper.jar
 
-  Expected GitHub release tag: star-hopper
-  Release assets configured in games/star-hopper.html:
-    StarHopper-Setup.exe
-    StarHopper-x86_64.AppImage
-    StarHopper.apk
+The Try Online page is a browser version built from the StarHopper Java game
+logic. It loads its sprites, pixel font, and music from the same folder:
+  BASIC.png
+  FAST.png
+  SHOOTER.png
+  player_one.png
+  player_two.png
+  PressStart2P-Regular.ttf
+  retro.mp3
 
-  Make sure the Windows and Android asset filenames above exactly match the
-  files attached to the GitHub release. If your release uses different names,
-  update the matching filenames in the platforms object in the page script.
+Expected GitHub release tag: star-hopper
 
 Images:
   favicon.png belongs in the main/root folder.
