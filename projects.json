@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "star-hopper",
+      "name": "Star Hopper",
+      "type": "game",
+      "status": "released",
+      "category": "Arcade",
+      "shortDescription": "Retro two-player arcade space shooter.",
+      "description": "Star Hopper is a retro two-player arcade space shooter. Pilot your spaceship through space, destroy incoming enemies, dodge enemy attacks, and try to survive for as long as possible.",
+      "icon": "icons/star-hopper.png",
+      "featured": true,
+      "screenshots": [
+        {
+          "src": "screenshots/star-hopper/1.png",
+          "alt": "Star Hopper mode selection"
+        },
+        {
+          "src": "screenshots/star-hopper/2.png",
+          "alt": "Star Hopper game over"
+        },
+        {
+          "src": "screenshots/star-hopper/3.png",
+          "alt": "Star Hopper gameplay"
+        }
+      ],
+      "downloads": {
+        "releaseBase": "https://github.com/CodeNgamet/codengamet.github.io/releases/download/star-hopper/",
+        "platforms": [
+          {
+            "id": "windows",
+            "name": "Windows (.EXE)",
+            "button": "Download for Windows",
+            "file": "StarHopper-Setup.exe",
+            "details": "Windows installer (.EXE). Download and run the installer, then follow its setup steps."
+          },
+          {
+            "id": "linux",
+            "name": "Linux (.AppImage)",
+            "button": "Download for Linux",
+            "file": "StarHopper-x86_64.AppImage",
+            "details": "Linux x86_64 AppImage. Download it, allow it to run if needed, and open it."
+          },
+          {
+            "id": "android",
+            "name": "Android (.APK)",
+            "button": "Download for Android",
+            "file": "StarHopper.apk",
+            "details": "Android package (.APK). Download the file and open it on your Android device to begin installation."
+          },
+          {
+            "id": "java",
+            "name": "Java (.JAR)",
+            "button": "Download Java JAR",
+            "file": "StarHopper.jar",
+            "details": "Java archive (.JAR). Requires a Java runtime. Download it and run it with java -jar StarHopper.jar."
+          }
+        ]
+      },
+      "sections": [
+        {
+          "title": "About Star Hopper",
+          "paragraphs": [
+            "Star Hopper is an arcade space shooter where you control a spaceship and fight against incoming enemy ships. You can play alone or with another player on the same computer.",
+            "Enemies enter from the top of the screen and move downwards. Some enemies can also shoot bullets toward the players. Your goal is to destroy enemies, earn points, collect power-ups, and stay alive."
+          ]
+        },
+        {
+          "title": "How to Play",
+          "paragraphs": [
+            "When the game opens, choose between one-player and two-player mode. Press 1 for one player or 2 for two players. Press Enter to start.",
+            "Each player begins with three lives. Shoot enemies to earn points and avoid collisions and enemy bullets. When a player loses all their lives, they cannot continue playing that round."
+          ]
+        },
+        {
+          "title": "Controls",
+          "table": {
+            "headers": [
+              "Player",
+              "Movement",
+              "Shoot"
+            ],
+            "rows": [
+              [
+                "Player 1",
+                "Arrow keys",
+                "Space"
+              ],
+              [
+                "Player 2",
+                "W, A, S, D",
+                "Left Shift"
+              ]
+            ]
+          },
+          "subheading": "Other controls",
+          "items": [
+            "P: Pause or resume the game.",
+            "M: Return to the main menu.",
+            "Enter: Play again after Game Over."
+          ]
+        },
+        {
+          "title": "Enemies",
+          "paragraphs": [
+            "There are three types of enemies in Star Hopper. Each one behaves differently and gives a different number of points."
+          ],
+          "subSections": [
+            {
+              "title": "Basic Enemy",
+              "paragraphs": [
+                "The basic enemy moves down the screen and can drift from side to side. Destroying one gives 10 points."
+              ]
+            },
+            {
+              "title": "Fast Enemy",
+              "paragraphs": [
+                "Fast enemies move more quickly than basic enemies. They start appearing from level 2 and give 15 points."
+              ]
+            },
+            {
+              "title": "Shooter Enemy",
+              "paragraphs": [
+                "Shooter enemies can fire bullets toward the players. They begin appearing from level 3 and give 20 points."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Levels and Waves",
+          "paragraphs": [
+            "Star Hopper tracks your score, level, and wave. Your level increases as the combined player scores increase. Waves also advance as your score grows.",
+            "As the level gets higher, enemies spawn more often and their movement becomes faster. Enemy attacks also become more challenging."
+          ]
+        },
+        {
+          "title": "Power-ups",
+          "paragraphs": [
+            "Defeating an enemy has a chance to make a power-up appear. Collect it with your spaceship to activate rapid fire.",
+            "Power-ups also give you an extra life if you have fewer than five lives remaining."
+          ]
+        },
+        {
+          "title": "Game Over",
+          "paragraphs": [
+            "In one-player mode, the game ends when Player 1 loses all their lives.",
+            "In two-player mode, the round continues as long as at least one player is still alive. The game ends when both players run out of lives.",
+            "After Game Over, press Enter to start another round or M to return to the main menu."
+          ]
+        }
+      ],
+      "github": {
+        "button": "View on GitHub",
+        "url": "https://github.com/CodeNgamet/codengamet.github.io/releases/tag/star-hopper"
+      }
+    },
+    {
+      "id": "forest-explorer",
+      "name": "Forest Explorer",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Adventure",
+      "shortDescription": "Adventure"
+    },
+    {
+      "id": "puzzle-blocks",
+      "name": "Puzzle Blocks",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Puzzle",
+      "shortDescription": "Puzzle"
+    },
+    {
+      "id": "island-quest",
+      "name": "Island Quest",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Exploration",
+      "shortDescription": "Exploration"
+    },
+    {
+      "id": "robo-lab",
+      "name": "Robo Lab",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Simulation",
+      "shortDescription": "Simulation"
+    },
+    {
+      "id": "castle-trails",
+      "name": "Castle Trails",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Adventure",
+      "shortDescription": "Adventure"
+    },
+    {
+      "id": "pixel-rails",
+      "name": "Pixel Rails",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Strategy",
+      "shortDescription": "Strategy"
+    },
+    {
+      "id": "deep-space",
+      "name": "Deep Space",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Exploration",
+      "shortDescription": "Exploration"
+    },
+    {
+      "id": "frog-valley",
+      "name": "Frog Valley",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Platformer",
+      "shortDescription": "Platformer"
+    },
+    {
+      "id": "mine-valley",
+      "name": "Mine Valley",
+      "type": "game",
+      "status": "coming-soon",
+      "category": "Exploration",
+      "shortDescription": "Exploration"
+    }
+  ]
+}
